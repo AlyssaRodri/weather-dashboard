@@ -1,62 +1,86 @@
-var appid = "529d0fda063cc140a2b1932e2f58436f";
-var showRecentSearches = localStorage.getItem("cities")
-var userInput = ""
+var APIKey = "529d0fda063cc140a2b1932e2f58436f";
+var showRecentSearches = [];
+let latVariable
+let lonVariable
+
 
 //Here I created a function to display the items set in local storage
-function showSearchHistory(){
+// For this project, I need to have a search bar that the user can input the city name into. 
+$("#search-submit").on("click", function findLocation() {
+
+    var city = $("#search-entry").val();
+    // URL to geocoding by location name
+    var geoLocationURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=" + APIKey
+
+    //create a variable for the user input
+    console.log(city)
+
+    function displayRecents() {
+        showRecentSearches.push(city)
+        //which will also need to be saved to local storage.
+        localStorage.setItem("cities", JSON.stringify(showRecentSearches));
+        //with the user information, I will need to append that information into the recent search history 
+
+    }
+
+    displayRecents()
+
+    // the user information will then need to go through the geocoding API in order to get lagitude and longitude.    
+    fetch(geoLocationURL)
+        .then(function (response) {
+            return response.json()
+        })
+        .then(function (result) {
+            console.log(result)
+            let resultArray = Object.values(result)
+            latVariable = resultArray[0].lat
+            lonVariable = resultArray[0].lon
+            console.log(latVariable)
+            console.log(lonVariable)
+            weatherAPI()
+        //now that we have the lat and lon variables, we can create a function that will run our weather API
+
+        async function weatherAPI(){
+
+            let oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latVariable + "&lon=" + lonVariable + "&units=imperial&exclude=hourly,minutely&appid=" + APIKey
+
+            fetch(oneCallURL)
+                .then(function(response){
+                return response.json()
+            })
+
+            .then(function(result){
+                console.log(result)
+            // Variables that I will need for my cards
+                let temperature
+                let humidity
+                let windSpeed
+                let UVIndex
+            })}
+        
+        
+        })
+
+})
+
+
+
+
+function showSearchHistory() {
     //if there are no searches in local storage
-    if( showRecentSearches === null ){
-        console.log("There are no searches logged.")
-    }else if(showRecentSearches != null){
+    if (showRecentSearches.length === 0) {
+        //display text
+        $(".list-searches").text("No recent searches. Click submit to get started!")
+    } else {
         //if there are items in the storage
         //https://stackoverflow.com/questions/39760854/append-dynamic-li-from-an-array
         // for each item in there
-        for ( var i = 0; i <= showRecentSearches.length; i++);
-        //append it to the recent search list item
-        $(".list-searches").append("<li></li>").text(showRecentSearches[i]);
+        for (var i = 0; i < showRecentSearches.length; i++);
+        $(".append-recent").append("<li></li>").text(localStorage.getItem("cities"))
     }
 }
 
-
-// For this project, I need to have a search bar that the user can input the city name into. 
-
-
-$("#search-submit").on("click", async function (event){
-    event.preventDefault()
-    console.log("am I running?")
-    
-    //create a variable for the user input
-    var city = $("#search-entry").val();
-    console.log(city)
-
-    // URL to geocoding by location name
-    var geoLocationURL = "http://api.openweathermap.org/geo/1.0/direct?q="+ city +"&limit=1&appid=" + appid
-
-    // // the user information will then need to go through the geocoding API in order to get lagitude and longitude.
-    // //So, I then created the new URL
-    // var newLocationURL = geoLocationURL + appid
-    console.log(geoLocationURL)
-    
-    fetch(geoLocationURL)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-        //move page to other index page?
-
-    
-    // Here I created a function to push the user input into the recent searches
-    function pushRecents(){
-        var recentSearches = []
-        recentSearches.push(city);
-        console.log(recentSearches)
-        //which will also need to be saved to local storage.
-        localStorage.setItem("cities", JSON.stringify(recentSearches));
-    }
-    //I also called that function
-    pushRecents()
-    showSearchHistory();
-})
-
+showSearchHistory();
 
 //once we have received the lagitude and longitude, we can then pull the oneCall API for the weather information.
 //With that weather information we will need to append it to our HTML file.
