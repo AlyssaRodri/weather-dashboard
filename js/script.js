@@ -1,3 +1,4 @@
+// declare global variables so that they can be called later.
 var APIKey = "529d0fda063cc140a2b1932e2f58436f";
 let latVariable
 let lonVariable
@@ -9,26 +10,34 @@ var uvIndex = $(".uvIdx")
 let weatherData
 var cards = $(".cards")
 var variableLists = $(".variableLists")
+var showRecentSearches = localStorage.getItem("cities")
 
-
+//Set todays date
 $(".setToday").text(todayDate)
 
-
+//Created an event listener that will initialize our website
 $("#search-submit").on("click", function(event) {
     event.preventDefault();
 
+    //Took away the class of hide for our card deck so the user can now see it.
     $(".card-deck").removeClass("hide")
     var userCity = document.getElementById("input").value
+    //here I created the geo location URL so that I could pull the users Lat and Lon Values
     var geoLocationURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + userCity + "&limit=1&appid=" + APIKey
 
     $(".cityName").text(userCity)
+    
+    pushRecents()
+    showSearchHistory();
 
     console.log(userCity)
 
+    // Once I submited that fetch
     fetch(geoLocationURL)
         .then(function (response) {
             return response.json()
         })
+        //I created a function to parse through the results
         .then(function (result) {
             console.log(result)
             let resultArray = Object.values(result)
@@ -36,6 +45,7 @@ $("#search-submit").on("click", function(event) {
             lonVariable = resultArray[0].lon
             console.log(latVariable)
             console.log(lonVariable)
+            //Once we have our results, we can call our main function, Weather API
             weatherAPI()
         })
     })
@@ -43,12 +53,16 @@ $("#search-submit").on("click", function(event) {
 function weatherAPI(){
     let oneCallURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latVariable + "&lon=" + lonVariable + "&units=imperial&exclude=hourly,minutely&appid=" + APIKey
 
+    //When we create the fetch function for our main URL
     fetch(oneCallURL)
         .then(response => response.json())
+        //we need to extrapulate the data
         .then(function(data){
             console.log(data);
             weatherData = data;
+            //and set the functions that will display todays weather
             setToday();
+            //And the Weather for the Next five days
             cardFront();
 
         })
@@ -57,7 +71,7 @@ function weatherAPI(){
 
 }
 
-
+//This function sets today's weather
 function setToday(){
     
     todayTemp.text(`Temperature: ${weatherData.current.temp}`)
@@ -79,9 +93,6 @@ function cardFront(){
         
         let everydayTemp = weatherData.daily[i].temp.day
         
-        
-        let everydayIcon = weatherData.daily[i].weather[0].icon
-        
         let everydayWind = weatherData.daily[i].wind_speed
         
         let everydayHum = weatherData.daily[i].humidity
@@ -96,9 +107,7 @@ function cardFront(){
         cardTemp.classList.add('center')
         cardTemp.textContent = everydayTemp
 
-        let cardIcon = document.createElement('div');
-        cardIcon.classList.add('center')
-        cardIcon.append("<img src='http://openweathermap.org/img/wn/" + cardIcon + "@2x.png' />");
+        $(".weatherIcon").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[i].weather[0].icon + "@2x.png' />")
 
         let cardWind = document.createElement('li');
         cardWind.textContent = everydayWind
@@ -107,14 +116,38 @@ function cardFront(){
         cardHum.textContent = everydayHum
 
         console.log(everydayTemp)
-        console.log(everydayIcon)
         console.log(everydayWind)
         console.log(everydayHum)
+        //Here is where I appended all of my data dynamically.
         
         cards[i].appendChild(cardDate);
         cardDate.appendChild(listAppend);
-        listAppend.appendChild(cardTemp)
-        cardTemp.appendChild()
-        //variableLists.appendChild(dailyTempHigh, dailyTempLow)
+        listAppend.appendChild(cardTemp);
+        cardTemp.appendChild(cardWind);
+        cardWind.appendChild(cardHum);
+
     }
+}
+
+//Here I created a function to display the items set in local storage
+function showSearchHistory(){
+    //if there are no searches in local storage
+    if( showRecentSearches === null ){
+        console.log("There are no searches logged.")
+    }else if(showRecentSearches != null){
+        //if there are items in the storage
+        //https://stackoverflow.com/questions/39760854/append-dynamic-li-from-an-array
+        // for each item in there
+        for ( var i = 0; i <= showRecentSearches.length; i++);
+        //append it to the recent search list item
+        $(".list-searches").append("<li>").text(showRecentSearches[i]);
+    }
+}
+
+function pushRecents(){
+    var recentSearches = []
+    userCity.push(recentSearches)
+    console.log(recentSearches)
+    //which will also need to be saved to local storage.
+    localStorage.setItem("cities", JSON.stringify(recentSearches));
 }
