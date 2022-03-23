@@ -1,13 +1,16 @@
 .form-inline{
-    display: inline-flex;
+    display: inline;
 }
 
 .mainList{
     list-style-type: none;
+    margin: auto;
+    size: 20px;
 }
 
 h2, h3 {
-
+    margin: auto;
+    size: 70rem;
 }
 
 header{
@@ -16,6 +19,21 @@ header{
     color: white;
 
 }
+
+.block-card{
+    display: inline-block;
+}
+
+.center {
+    margin: auto
+}
+
+.listCSS {
+    list-style-type: none;
+    margin: auto;
+    size: 20px;
+}
+
 
 .hide{
     display: none;

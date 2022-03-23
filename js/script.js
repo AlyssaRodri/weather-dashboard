@@ -105,22 +105,23 @@ function cardFront(){
         let everydayHum = weatherData.daily[i].humidity
         
         let cardDate = document.createElement('h3');
-        cardDate.classList.add('card-title', 'center');
+        cardDate.classList.add('card-title', 'center', 'block-card');
         cardDate.textContent = dayCard;
         
         let listAppend = document.createElement('ul')
+        listAppend.classList.add("listCSS")
 
         let cardTemp = document.createElement('li')
         cardTemp.classList.add('center')
-        cardTemp.textContent = everydayTemp
+        cardTemp.textContent = "Temperature " + everydayTemp
 
         $(".weatherIcon").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[i].weather[0].icon + "@2x.png' />")
 
         let cardWind = document.createElement('li');
-        cardWind.textContent = everydayWind
+        cardWind.textContent = "Wind Speed " + everydayWind
 
         let cardHum = document.createElement('li');
-        cardHum.textContent = everydayHum
+        cardHum.textContent = "Humidity " + everydayHum
 
         console.log(everydayTemp)
         console.log(everydayWind)
