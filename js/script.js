@@ -10,6 +10,7 @@ let weatherData
 var cardTemp = $(".temperature")
 var cardHum = $(".humidity")
 var cardWind = $(".wind-speed")
+var cards = $(".cards")
 
 
 $(".setToday").text(todayDate)
@@ -18,7 +19,7 @@ $(".setToday").text(todayDate)
 $("#search-submit").on("click", function(event) {
     event.preventDefault();
 
-    $("#allCards").removeClass("hide")
+    $(".card-deck").removeClass("hide")
     var userCity = document.getElementById("input").value
     var geoLocationURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + userCity + "&limit=1&appid=" + APIKey
 
@@ -50,7 +51,7 @@ function weatherAPI(){
             console.log(data);
             weatherData = data;
             setToday();
-            setCards();
+            cardFront();
 
         })
 
@@ -68,14 +69,20 @@ function setToday(){
     $("#weatherIcon1").append("<img id='theImg' src='http://openweathermap.org/img/wn/" + weatherData.current.weather[0].icon + "@2x.png' />");
 
 }
+// After some research, I decide to create each of the card elements dynamically
 
-function setCards(){
-     for( var i=1; i<6; i++){
+function cardFront(){  
+    for(i=0; i<cards.length; i++){
+        
+        // gives us next 5 days
+        let dayCard = moment().add(i, 'days').format('l');
+        
+        // Create a header tag
+        let cardDate = document.createElement('h3');
+        cardDate.classList.add('card-title', 'center');
+        cardDate.textContent = dayCard;
 
-        var dayCard = moment().add(i, 'days').format('l');  //gives us next 5 days
-        console.log(dayCard)
-
-        $(".card-title").textContent = dayCard
-
+        //date is appended
+        cards[i].appendChild(cardDate);
     }
 }
