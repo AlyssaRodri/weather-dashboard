@@ -7,10 +7,8 @@ var todayHum = $(".humidity1")
 var todayWind = $(".wind-speed1")
 var uvIndex = $(".uvIdx")
 let weatherData
-var cardTemp = $(".temperature")
-var cardHum = $(".humidity")
-var cardWind = $(".wind-speed")
 var cards = $(".cards")
+var variableLists = $(".variableLists")
 
 
 $(".setToday").text(todayDate)
@@ -84,5 +82,13 @@ function cardFront(){
 
         //date is appended
         cards[i].appendChild(cardDate);
+
+        let dailyTempHigh = document.createElement('li');
+
+        let dailyTempLow = document.createElement('li')
+
+        dailyTempHigh.text(`Today's high is ${weatherData.daily[i].temp[1].max}`)
+        dailyTempLow.text(`Today's low is ${weatherData.daily[i].temp[1].min}`)
+
     }
 }
