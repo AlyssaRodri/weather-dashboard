@@ -81,16 +81,37 @@ function weatherAPI(){
 //This function sets today's weather
 function setToday(){
     
-    todayTemp.text(`Temperature: ${weatherData.current.temp}`)
-    todayHum.text(`Humidity: ${weatherData.current.humidity}`)
-    todayWind.text(`Wind Speed: ${weatherData.current.wind_speed}`)
+    todayTemp.text(`Temperature: ${weatherData.current.temp} °F`)
+    todayWind.text(`Wind Speed: ${weatherData.current.wind_speed} mph`)
+    todayHum.text(`Humidity: ${weatherData.current.humidity} % `)
     uvIndex.text(`UV Index: ${weatherData.current.uvi}`)
     $("#weatherIcon1").append("<img src='http://openweathermap.org/img/wn/" + weatherData.current.weather[0].icon + "@2x.png' />");
+    setUV()
+    function setUV(){
+        var uvVar = weatherData.current.uvi
 
+        if(uvVar <= 2 ){
+            $("#changeColor").addClass("green")
+        } else if ( 2 < uvVar <= 7 ){
+            $("#changeColor").addClass("yellow")  
+        } else if (uvVar > 7){
+            $("#changeColor").addClass(".red")
+        }
+
+    }
 }
 // After some research, I decide to create each of the card elements dynamically
 
-function cardFront(){  
+function cardFront(){
+    
+    $("#weatherIcon2").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[0].weather[0].icon + "@2x.png' />");
+    $("#weatherIcon3").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[1].weather[0].icon + "@2x.png' />");
+    $("#weatherIcon4").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[2].weather[0].icon + "@2x.png' />");
+    $("#weatherIcon5").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[3].weather[0].icon + "@2x.png' />");
+    $("#weatherIcon6").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[4].weather[0].icon + "@2x.png' />");
+
+
+
     for(i=0; i<cards.length; i++){
         
         // gives us next 5 days
@@ -105,7 +126,7 @@ function cardFront(){
         let everydayHum = weatherData.daily[i].humidity
         
         let cardDate = document.createElement('h3');
-        cardDate.classList.add('card-title', 'center', 'block-card');
+        cardDate.classList.add('card-title', 'center');
         cardDate.textContent = dayCard;
         
         let listAppend = document.createElement('ul')
@@ -113,15 +134,15 @@ function cardFront(){
 
         let cardTemp = document.createElement('li')
         cardTemp.classList.add('center')
-        cardTemp.textContent = "Temperature " + everydayTemp
+        cardTemp.textContent = "Temperature " + everydayTemp + "°F"
 
         $(".weatherIcon").append("<img src='http://openweathermap.org/img/wn/" + weatherData.daily[i].weather[0].icon + "@2x.png' />")
 
         let cardWind = document.createElement('li');
-        cardWind.textContent = "Wind Speed " + everydayWind
+        cardWind.textContent = "Wind Speed " + everydayWind + "mph"
 
         let cardHum = document.createElement('li');
-        cardHum.textContent = "Humidity " + everydayHum
+        cardHum.textContent = "Humidity " + everydayHum + "%"
 
         console.log(everydayTemp)
         console.log(everydayWind)

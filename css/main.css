@@ -8,8 +8,9 @@
     size: 20px;
 }
 
-h2, h3 {
-    margin: auto;
+h2 {
+    margin-bottom: 3%;
+    margin-top: 2%;
     size: 70rem;
 }
 
@@ -20,8 +21,24 @@ header{
 
 }
 
-.block-card{
+.green{
+    background-color: #5B8266;
+}
+
+.yellow{
+    background-color: #FFC857;
+}
+
+.red{
+    background-color: #AA5042;
+}
+
+.cards{
     display: inline-block;
+    border: 2px solid black;
+    max-height: 30%;
+    padding: 3%;
+    margin: 1%;
 }
 
 .center {
