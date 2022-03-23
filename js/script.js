@@ -64,7 +64,7 @@ function setToday(){
     todayHum.text(`Humidity: ${weatherData.current.humidity}`)
     todayWind.text(`Wind Speed: ${weatherData.current.wind_speed}`)
     uvIndex.text(`UV Index: ${weatherData.current.uvi}`)
-    $("#weatherIcon1").append("<img id='theImg' src='http://openweathermap.org/img/wn/" + weatherData.current.weather[0].icon + "@2x.png' />");
+    $("#weatherIcon1").append("<img src='http://openweathermap.org/img/wn/" + weatherData.current.weather[0].icon + "@2x.png' />");
 
 }
 // After some research, I decide to create each of the card elements dynamically
@@ -76,19 +76,45 @@ function cardFront(){
         let dayCard = moment().add(i, 'days').format('l');
         
         // Create a header tag
+        
+        let everydayTemp = weatherData.daily[i].temp.day
+        
+        
+        let everydayIcon = weatherData.daily[i].weather[0].icon
+        
+        let everydayWind = weatherData.daily[i].wind_speed
+        
+        let everydayHum = weatherData.daily[i].humidity
+        
         let cardDate = document.createElement('h3');
         cardDate.classList.add('card-title', 'center');
         cardDate.textContent = dayCard;
+        
+        let listAppend = document.createElement('ul')
 
-        //date is appended
+        let cardTemp = document.createElement('li')
+        cardTemp.classList.add('center')
+        cardTemp.textContent = everydayTemp
+
+        let cardIcon = document.createElement('div');
+        cardIcon.classList.add('center')
+        cardIcon.append("<img src='http://openweathermap.org/img/wn/" + cardIcon + "@2x.png' />");
+
+        let cardWind = document.createElement('li');
+        cardWind.textContent = everydayWind
+
+        let cardHum = document.createElement('li');
+        cardHum.textContent = everydayHum
+
+        console.log(everydayTemp)
+        console.log(everydayIcon)
+        console.log(everydayWind)
+        console.log(everydayHum)
+        
         cards[i].appendChild(cardDate);
-
-        let dailyTempHigh = document.createElement('li');
-
-        let dailyTempLow = document.createElement('li')
-
-        dailyTempHigh.text(`Today's high is ${weatherData.daily[i].temp[1].max}`)
-        dailyTempLow.text(`Today's low is ${weatherData.daily[i].temp[1].min}`)
-
+        cardDate.appendChild(listAppend);
+        listAppend.appendChild(cardTemp)
+        cardTemp.appendChild()
+        //variableLists.appendChild(dailyTempHigh, dailyTempLow)
     }
 }
