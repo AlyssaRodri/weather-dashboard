@@ -34,89 +34,98 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Recent Searches
+              Dropdown
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <ul class="append-recent" >
-              </ul>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Something else here</a>
             </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input id="search-entry" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <input id="input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button id="search-submit" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
     </nav>
 
-
     <main>
+      <h2 class="cityName"></h2>
+      <h3 class="setToday"></h3>
+      <div id="weatherIcon1"></div>
+      <ul>
+        <li class="temperature1"></li>
+        <li class="humidity1"></li>
+        <li class="wind-speed1"></li>
+        <li class="uvIdx"></li>
+      </ul>
+    </main>
+
+
+
+    <footer id="allCards" class=" hide" >
+
       <div class="card-deck">
         <div class="card">
           <img class="card-img-top" src="./images/placeHolder.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title day1-date">Card title</h5>
             <ul class="card-content">
               <li class="temperature">Temperature</li>
               <li class="humidity"> Humidity </li>
               <li class="wind-speed"> Wind Speed </li>
-              <li class="UV-index"> UV Index </li>
             </ul>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
 
         <div class="card">
           <img class="card-img-top" src="./images/placeHolder.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title day2-date">Card title</h5>
             <ul class="card-content">
               <li class="temperature">Temperature</li>
               <li class="humidity"> Humidity </li>
               <li class="wind-speed"> Wind Speed </li>
-              <li class="UV-index"> UV Index </li>
             </ul>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
         <div class="card">
           <img class="card-img-top" src="./images/placeHolder.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title day3-date ">Card title</h5>
             <ul class="card-content">
               <li class="temperature">Temperature</li>
               <li class="humidity"> Humidity </li>
               <li class="wind-speed"> Wind Speed </li>
-              <li class="UV-index"> UV Index </li>
             </ul>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
         <div class="card">
           <img class="card-img-top" src="./images/placeHolder.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title day4-date">Card title</h5>
             <ul class="card-content">
               <li class="temperature">Temperature</li>
               <li class="humidity"> Humidity </li>
               <li class="wind-speed"> Wind Speed </li>
-              <li class="UV-index"> UV Index </li>
             </ul>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
         </div>
         
         <div class="card">
           <img class="card-img-top" src="./images/placeHolder.png" alt="Card image cap">
           <div class="card-body">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title day5-date">Card title</h5>
             <ul class="card-content">
               <li class="temperature">Temperature</li>
               <li class="humidity"> Humidity </li>
               <li class="wind-speed"> Wind Speed </li>
-              <li class="UV-index"> UV Index </li>
             </ul>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
           </div>
 
           </div>
@@ -124,17 +133,18 @@
       </div>
       
 
-    </main>
+    </footer>
 
 
 
 
 
-    <!-- Link to JQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <!-- Link to my JS file -->
     <script src="./js/script.js"></script>
   </body>

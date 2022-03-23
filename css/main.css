@@ -13,7 +13,7 @@ header{
 
 }
 
-h2, .smallfont{
-    font-size: 16px;
+.hide{
+    display: none;
 }
 
