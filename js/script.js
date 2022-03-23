@@ -27,6 +27,13 @@ $("#search-submit").on("click", function(event) {
 
     $(".cityName").text(userCity)
     
+    function pushRecents(){
+    var recentSearches = []
+    recentSearches.push(userCity);
+    console.log(recentSearches)
+    //which will also need to be saved to local storage.
+    localStorage.setItem("cities", JSON.stringify(recentSearches));
+}
     pushRecents()
     showSearchHistory();
 
@@ -144,10 +151,3 @@ function showSearchHistory(){
     }
 }
 
-function pushRecents(){
-    var recentSearches = []
-    userCity.push(recentSearches)
-    console.log(recentSearches)
-    //which will also need to be saved to local storage.
-    localStorage.setItem("cities", JSON.stringify(recentSearches));
-}

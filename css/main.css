@@ -2,12 +2,16 @@
     display: inline-flex;
 }
 
-.card-deck {
-    display: flex;
+.mainList{
+    list-style-type: none;
+}
+
+h2, h3 {
+
 }
 
 header{
-    align-items: center;
+
     background-color: rgb(6, 6, 51);
     color: white;
 
@@ -16,4 +20,5 @@ header{
 .hide{
     display: none;
 }
+
 
